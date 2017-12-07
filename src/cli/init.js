@@ -6,9 +6,9 @@ import { sync as emptyDir } from 'empty-dir'
 
 import { info, error, success } from './tools'
 
-const init = ({ demo }) => {
+const init = ({ demo, install }) => {
   const type = demo ? 'demo' : 'app'  // 获取构建类型
-  const cwd = join(__dirname, '../boilerplates', type) // 根据构建类型获取模板文件路径
+  const cwd = join(__dirname, '../../boilerplates', type) // 根据构建类型获取模板文件路径
   const dest = process.cwd()  // 获取命令执行当前目录
   const projectName = basename(dest)  // 以文件名作为项目名
 

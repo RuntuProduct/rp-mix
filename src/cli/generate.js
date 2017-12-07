@@ -1,4 +1,4 @@
-import { api } from '../../rp-ast'
+import { api } from '../ast'
 import upperCamelCase from 'simple-uppercamelcase'
 import { basename, dirname, join } from 'path'
 import { statSync, readFileSync } from 'fs'
