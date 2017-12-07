@@ -10,6 +10,7 @@ import * as router from './router';
 import * as project from './project';
 import * as entry from './entry';
 import * as components from './components';
+import * as path from './path';
 
 const TYPE_SEP = '.';
 const apiMap = {
@@ -19,6 +20,7 @@ const apiMap = {
   project,
   entry,
   components,
+  path,
 };
 
 // .api 的入口函数

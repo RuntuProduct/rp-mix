@@ -5,9 +5,9 @@ import { readFileSync, existsSync } from 'fs';
 import { outputFileSync, removeSync } from 'fs-extra';
 
 export function getTemplate(name) {
-  const filePath = join(__dirname, `../../../../boilerplates/ast/${name}.handlebars`);
-  assert(existsSync(filePath), `getTemplate: file ${name} not fould`);
-  const source = readFileSync(filePath, 'utf-8');
+  const filePath = join(__dirname, `../../../../boilerplates/ast/${name}.handlebars`) // 获取模块文件
+  assert(existsSync(filePath), `getTemplate: file ${name} not fould`) // 文件存在性校验
+  const source = readFileSync(filePath, 'utf-8')  // 返回源码
   return Handlebars.compile(source);
 }
 
