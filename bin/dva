@@ -1,0 +1,56 @@
+#!/usr/bin/env node
+'use strict';
+
+const chalk = require('chalk');
+const program = require('commander');
+const spawn = require('cross-spawn');
+const resolve = require('path').resolve;
+const exists = require('fs').existsSync;
+
+program
+  .version(require('../package').version) // -V 命令，显示版本信息
+  .usage('<command> [options]')
+  .on('--help', printHelp) // -h 命令，显示帮助信息
+  .parse(process.argv);
+
+const aliases = {
+  g: 'generate',
+};
+const args = process.argv.slice(3);
+let subcmd = program.args[0];
+if (aliases[subcmd]) subcmd = aliases[subcmd];
+
+if (!subcmd) {
+  program.help();
+} else {
+  const bin = executable(subcmd);
+  if (bin) {
+    console.log(bin);
+    wrap(spawn(bin, args, {stdio: 'inherit', customFds: [0, 1, 2]}));
+  } else {
+    program.help();
+  }
+}
+
+function wrap(sp) {
+  sp.on('close', function(code) {
+    process.exit(code);
+  });
+}
+
+function printHelp() {
+  console.log('  Commands:');
+  console.log();
+  console.log('    init           Init a new dva application in the current folder');
+  console.log('    new            Creates a new application');
+  console.log('    generate       Generates new code (short-cut alias: "g")');
+  console.log();
+  console.log('  All commands can be run with -h (or --help) for more information.')
+}
+
+function executable(subcmd) {
+  var file = resolve(__dirname, './dva-' + subcmd);
+  if (exists(file)) {
+    return file;
+  }
+}
